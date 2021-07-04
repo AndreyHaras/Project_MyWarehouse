@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кладовщики</title>
+    <link rel="stylesheet" href="/css/projeck.css">
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <nav class="header-nav">
+            <div class="header-logo">
+                <h3>кладовщики</h3>
+            </div>
+            <ul class="header-nav-list">
+                <li>
+                    <a th:href="@{/consignment_note/}">Накладные</a>
+                </li>
+                <li>
+                    <a th:href="@{/storekeeper/}">Кладовщики</a>
+                </li>
+                <li>
+                    <a th:href="@{/warehouse/}">Склад</a>
+                </li>
+                <li>
+                    <a th:href="@{/product/}">Товар</a>
+                </li>
+                <li sec:authorize="hasAnyRole('ROLE_ADMIN')" th:if="${#authorization.getAuthentication().isAuthenticated()}">
+                    <a th:href="@{/organization/}" class="header-nav-link">Организация</a>
+                    <ul class="header-nav-sabmenu-list">
+                        <li>
+                            <a th:href="@{/bank/}" class="header-nav-sabmenu-link">Банки</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/partner/}" class="header-nav-sabmenu-link">Контрагенты</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/users/}" class="header-nav-sabmenu-link">Пользователи</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="header-nav-list">
+                <a th:href="@{/logout}">Выход</a>
+            </div>
+        </nav>
+    </header>
+    <br/>
+    <div class="content-table">
+        <div class="content-header">
+            <h2>Информация о Кладовщиках</h2>
+        </div>
+        <form sec:authorize="hasAnyRole('ROLE_ADMIN')" th:if="${#authorization.getAuthentication().isAuthenticated()}"
+              th:action="@{/storekeeper/add/}" method="get">
+            <button type="submit" class="button">
+                <span  class="button__text">Добавить Кладовщика</span>
+            </button>
+        </form>
+        <table>
+            <thead>
+            <th>#</th>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>Код Сотрудника</th>
+            <th>Номер ответственности</th>
+            <th>Действие</th>
+            </thead>
+            <tbody th:each="storekeeper : ${storekeeperList}">
+            <td th:utext="${storekeeper.getId()}"></td>
+            <td th:utext="${storekeeper.getSurname()}"></td>
+            <td th:utext="${storekeeper.getName()}"></td>
+            <td th:utext="${storekeeper.getMiddleName()}"></td>
+            <td th:utext="${storekeeper.getEmployeeCode()}"></td>
+            <td th:utext="${storekeeper.getLiabilityId()}"></td>
+            <td>
+                <a th:href="@{/storekeeper/info/{id}(id=${storekeeper.id})}">Просмотр</a>
+                <a sec:authorize="hasAnyRole('ROLE_ADMIN')" th:if="${#authorization.getAuthentication().isAuthenticated()}"
+                        th:href="@{/storekeeper/update_storekeeper/{id}(id=${storekeeper.id})}">Редактировать</a>
+            </td>
+            </tbody>
+        </table>
+    </div>
+    <footer class="footer">
+        <div class="footer-content">
+            <p>2021 My Warehouse</p>
+        </div>
+    </footer>
+</div>
+</body>
+</html>

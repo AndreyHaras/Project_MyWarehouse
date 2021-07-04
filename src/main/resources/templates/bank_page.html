@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Банки</title>
+    <link rel="stylesheet" href="/css/projeck.css">
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <nav class="header-nav">
+            <div class="header-logo">
+                <h3>информация о банках</h3>
+            </div>
+            <ul class="header-nav-list">
+                <li>
+                    <a th:href="@{/consignment_note/}">Накладные</a>
+                </li>
+                <li>
+                    <a th:href="@{/storekeeper/}">Кладовщики</a>
+                </li>
+                <li>
+                    <a th:href="@{/warehouse/}">Склад</a>
+                </li>
+                <li>
+                    <a th:href="@{/product/}">Товар</a>
+                </li>
+                <li sec:authorize="hasAnyRole('ROLE_ADMIN')" th:if="${#authorization.getAuthentication().isAuthenticated()}">
+                    <a th:href="@{/organization/}" class="header-nav-link">Организация</a>
+                    <ul class="header-nav-sabmenu-list">
+                        <li>
+                            <a th:href="@{/bank/}" class="header-nav-sabmenu-link">Банки</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/partner/}" class="header-nav-sabmenu-link">Контрагенты</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/users/}" class="header-nav-sabmenu-link">Пользователи</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="header-nav-list">
+                <a th:href="@{/logout}">Выход</a>
+            </div>
+        </nav>
+    </header>
+    <br/>
+    <div class="content-table">
+        <div class="content-header">
+            <h2>Добавление Банка</h2>
+        </div>
+        <form th:action="@{/bank/add/}" method="POST" class="content-add" th:object="${bankAdd}">
+            <div class="content-fields">
+                <div>
+                    <p>Введите Код Банка</p>
+                    <p th:if="${#fields.hasErrors('bankCode')}" th:class="${#fields.hasErrors('bankCode')} ? error"
+                       th:errors="*{bankCode}">Error</p>
+                    <input id="bankCode" type="number"
+                           name="bankCode" placeholder="введите код банка"
+                        th:value="${bankAdd.bankCode}"/>
+                </div>
+                <div>
+                    <p>Введите Название Банка</p>
+                    <p th:if="${#fields.hasErrors('bankName')}" th:class="${#fields.hasErrors('bankName')} ? error"
+                       th:errors="*{bankName}">Error</p>
+                    <input id="bankName" type="text" name="bankName" placeholder="введите название банка"
+                        th:value="${bankAdd.bankName}"/>
+                </div>
+                <div class="conent-filter-button">
+                    <p>Действия</p>
+                    <button type="submit">Добавить</button>
+                    <button th:type="reset">Очистить</button>
+                </div>
+            </div>
+        </form>
+        <br/>
+    </div>
+    <div class="content-table">
+        <div class="content-header">
+            <h2>Банки</h2>
+        </div>
+        <br/>
+        <table>
+            <!--/*@thymesVar id="bank" type="com.myprogect.mywarehouse.service.dto.BankDTO"*/-->
+            <thead>
+            <th>#</th>
+            <th>Код Банка</th>
+            <th>Наименование Банка</th>
+            <th>Действие</th>
+            </thead>
+            <tbody th:each="bank : ${bankList}">
+            <td th:utext="${bank.getId()}"></td>
+            <td th:utext="${bank.getBankCode()}"></td>
+            <td th:utext="${bank.getBankName()}"></td>
+            <td>
+                <a th:href="@{/bank/info/{id}(id=${bank.id})}">Просмотр Дополнительной Информации</a>
+            </td>
+            </tbody>
+        </table>
+    </div>
+    <footer class="footer">
+        <div class="footer-content">
+            <p>2021 My Warehouse</p>
+        </div>
+    </footer>
+</div>
+</body>
+</html>
