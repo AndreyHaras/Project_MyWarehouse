@@ -1,4 +1,4 @@
-package com.myprogect.mywarehouse.web.controller.controller;
+package com.myprogect.mywarehouse.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,4 +1,4 @@
-package com.myprogect.mywarehouse.web.controller.constant;
+package com.myprogect.mywarehouse.web.constant;
 
 public interface Constants {
     interface BaseController{

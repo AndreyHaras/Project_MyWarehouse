@@ -1,9 +1,9 @@
-package com.myprogect.mywarehouse.web.controller.controller;
+package com.myprogect.mywarehouse.web.controller;
 
 import com.myprogect.mywarehouse.service.ProductMatrixService;
 import com.myprogect.mywarehouse.service.dto.ProductMatrixDTO;
 import com.myprogect.mywarehouse.service.validator.ProductValidator;
-import com.myprogect.mywarehouse.web.controller.constant.Constants;
+import com.myprogect.mywarehouse.web.constant.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import javax.validation.Valid;
 import java.util.List;
-import static com.myprogect.mywarehouse.web.controller.constant.Constants.BaseController.LISTING;
+import static com.myprogect.mywarehouse.web.constant.Constants.BaseController.LISTING;
 
 @Controller
 @RequestMapping(Constants.BaseController.PRODUCT)

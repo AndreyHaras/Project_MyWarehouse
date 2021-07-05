@@ -1,4 +1,4 @@
-package com.myprogect.mywarehouse.web.controller.controller;
+package com.myprogect.mywarehouse.web.controller;
 
 import com.myprogect.mywarehouse.service.ProductMatrixService;
 import com.myprogect.mywarehouse.service.validator.ProductValidator;
@@ -10,7 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import static com.myprogect.mywarehouse.web.controller.constant.Constants.BaseController.*;
+import static com.myprogect.mywarehouse.web.constant.Constants.BaseController.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;

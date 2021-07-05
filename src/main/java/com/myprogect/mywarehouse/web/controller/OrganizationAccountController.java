@@ -1,4 +1,4 @@
-package com.myprogect.mywarehouse.web.controller.controller;
+package com.myprogect.mywarehouse.web.controller;
 
 import com.myprogect.mywarehouse.service.BankService;
 import com.myprogect.mywarehouse.service.OrganizationAccountService;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import javax.validation.Valid;
 import java.util.List;
-import static com.myprogect.mywarehouse.web.controller.constant.Constants.BaseController.*;
+import static com.myprogect.mywarehouse.web.constant.Constants.BaseController.*;
 
 @Controller
 @Secured({"ROLE_ADMIN"})

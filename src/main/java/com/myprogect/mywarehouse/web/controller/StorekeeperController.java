@@ -1,4 +1,4 @@
-package com.myprogect.mywarehouse.web.controller.controller;
+package com.myprogect.mywarehouse.web.controller;
 
 import com.myprogect.mywarehouse.service.LiabilityService;
 import com.myprogect.mywarehouse.service.StorekeeperService;
@@ -17,7 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.util.List;
-import static com.myprogect.mywarehouse.web.controller.constant.Constants.BaseController.*;
+import static com.myprogect.mywarehouse.web.constant.Constants.BaseController.*;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Controller

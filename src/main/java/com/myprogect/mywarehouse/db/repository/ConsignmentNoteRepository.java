@@ -1,9 +1,6 @@
 package com.myprogect.mywarehouse.db.repository;
 
 import com.myprogect.mywarehouse.db.entity.ConsignmentNote;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Date;
 import java.util.List;

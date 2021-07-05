@@ -1,7 +1,6 @@
 package com.myprogect.mywarehouse.db.entity;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import javax.persistence.*;
 import java.util.ArrayList;
