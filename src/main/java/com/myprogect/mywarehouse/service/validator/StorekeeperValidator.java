@@ -38,6 +38,9 @@ public class StorekeeperValidator implements Validator {
                 storekeeperFromPage.getEmployeeCode().toString().length()>10){
             errors.rejectValue("employeeCode", "Error.value.must.be.integer");
         }
+        if(storekeeperFromPage.getLiabilityId() == null){
+            errors.rejectValue("liabilityId", "Error.data.is.not.enter");
+        }
         StorekeeperDTO storekeeperFromDB = service.findByEmployeeCode(storekeeperFromPage.getEmployeeCode());
         if(storekeeperFromDB.getEmployeeCode().toString().compareTo("0") != 0){
             errors.rejectValue("employeeCode","NotValid.storekeeper.employee.code");

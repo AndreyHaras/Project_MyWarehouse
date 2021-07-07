@@ -52,12 +52,20 @@ public class StorekeeperServiceImpl implements StorekeeperService {
     @Override
     public void saveOrUpdate(StorekeeperDTO storekeeper) {
         Storekeeper storekeeperToDB = new Storekeeper();
-        storekeeperToDB.setLiability_id(storekeeper.getLiabilityId())
-                        .setEmployeeCode(storekeeper.getEmployeeCode())
-                        .setName(storekeeper.getName())
-                        .setSurname(storekeeper.getSurname())
-                        .setMiddleName(storekeeper.getMiddleName());
-
+        if(storekeeper.getId() == null) {
+            storekeeperToDB.setLiability_id(storekeeper.getLiabilityId())
+                    .setEmployeeCode(storekeeper.getEmployeeCode())
+                    .setName(storekeeper.getName())
+                    .setSurname(storekeeper.getSurname())
+                    .setMiddleName(storekeeper.getMiddleName());
+        }else {
+            storekeeperToDB.setId(storekeeper.getId())
+                    .setLiability_id(storekeeper.getLiabilityId())
+                    .setEmployeeCode(storekeeper.getEmployeeCode())
+                    .setName(storekeeper.getName())
+                    .setSurname(storekeeper.getSurname())
+                    .setMiddleName(storekeeper.getMiddleName());
+        }
         repository.save(storekeeperToDB);
     }
 

@@ -85,6 +85,8 @@
             <div class="content-fields">
                 <div>
                     <p>Номер Ответственности</p>
+                    <p th:if="${#fields.hasErrors('liabilityId')}" th:class="${#fields.hasErrors('liabilityId')} ? error"
+                       th:errors="*{getLiabilityId()}">Error</p>
                     <select id="liabilityId" name="liabilityId">
                         <option th:each="liability : ${liabilityList}"
                                 th:value="${liability.getId()}"

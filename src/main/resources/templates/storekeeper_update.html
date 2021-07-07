@@ -57,7 +57,7 @@
         <!--/*@thymesVar id="storekeeperUpdate" type="com.myprogect.mywarehouse.service.dto.StorekeeperDTO"*/-->
         <form th:action="@{/storekeeper/update_storekeeper/}" method="POST" class="content-add"
               th:object="${storekeeperUpdate}">
-            <br/>
+            <input name="id" type="hidden" th:value="${storekeeperUpdate.id}">
             <div class="content-fields">
                 <div>
                     <p>Фамилия</p>
@@ -85,11 +85,13 @@
             <div class="content-fields">
                 <div>
                     <p>Номер Ответственности</p>
-                    <select id="liabilityCode" name="liabilityCode">
+                    <p th:if="${#fields.hasErrors('liabilityId')}" th:class="${#fields.hasErrors('liabilityId')} ? error"
+                       th:errors="*{getLiabilityId()}">Error</p>
+                    <select id="liabilityId" name="liabilityId">
                         <option th:each="liability : ${liabilityList}"
                                 th:value="${liability.getId()}"
                                 th:text="${liability.getLiabilityCode()}"
-                                th:selected="${liability.id == storekeeperUpdate.getLiabilityId}">type</option>
+                                th:selected="${liability.id == storekeeperUpdate.liabilityId}">type</option>
                     </select>
                 </div>
                 <div>
