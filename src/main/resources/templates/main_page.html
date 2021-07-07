@@ -101,11 +101,12 @@
                     <td th:if="${consignment?.getId()}" >
                         <a th:href="@{/consignment_note/info/{id}(id=${consignment.id})}">Просмотр</a>
                         <a  sec:authorize="hasAnyRole('ROLE_ADMIN')" th:if="${#authorization.getAuthentication().isAuthenticated()}"
+                                onclick="return confirm('Внимание! данные будут изменены, желаете продолжить?')"
                                 th:href="@{/consignment_note/update_consignment_note/{id}(id=${consignment.id})}">Редактировать</a>
                         <a th:href="@{/consignment_note/add_product/{id}(id=${consignment.id})}">Принять Товар</a>
                         <a sec:authorize="hasAnyRole('ROLE_ADMIN')" th:if="${#authorization.getAuthentication().isAuthenticated()}"
                                 onclick="return confirm('Вы действительно хотите удалить запись? ' +
-                         'Внимание информация о товаре на складе так-же будет удалена')"
+                         'Внимание! информация о товаре на складе так-же будет удалена')"
                            th:href="@{/consignment_note/delete/{id}(id=${consignment.id})}">Удалить</a>
                     </td>
                 </tbody>

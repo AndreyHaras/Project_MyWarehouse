@@ -57,12 +57,20 @@ public class ConsignmentNoteImpl implements ConsignmentNoteService {
     @Override
     public void saveOrUpdate(ConsignmentNoteDTO consignmentNoteDTO) {
         ConsignmentNote consignmentNoteDB = new ConsignmentNote();
-
-        consignmentNoteDB.setConsignmentNoteId(Long.valueOf(consignmentNoteDTO.getConsignmentNoteId()))
-                            .setConsignmentNoteDate(Date.valueOf(consignmentNoteDTO.getConsignmentNoteDate()))
-                            .setPartnerCode(consignmentNoteDTO.getPartnerCode())
-                            .setTypeOfOperationCode(consignmentNoteDTO.getTypeOfOperationCode())
-                            .setEmployeeCode(consignmentNoteDTO.getEmployeeCode());
+        if(consignmentNoteDTO.getId() == null) {
+            consignmentNoteDB.setConsignmentNoteId(Long.valueOf(consignmentNoteDTO.getConsignmentNoteId()))
+                    .setConsignmentNoteDate(Date.valueOf(consignmentNoteDTO.getConsignmentNoteDate()))
+                    .setPartnerCode(consignmentNoteDTO.getPartnerCode())
+                    .setTypeOfOperationCode(consignmentNoteDTO.getTypeOfOperationCode())
+                    .setEmployeeCode(consignmentNoteDTO.getEmployeeCode());
+        }else{
+            consignmentNoteDB.setId(consignmentNoteDTO.getId())
+                    .setConsignmentNoteId(Long.valueOf(consignmentNoteDTO.getConsignmentNoteId()))
+                    .setConsignmentNoteDate(Date.valueOf(consignmentNoteDTO.getConsignmentNoteDate()))
+                    .setPartnerCode(consignmentNoteDTO.getPartnerCode())
+                    .setTypeOfOperationCode(consignmentNoteDTO.getTypeOfOperationCode())
+                    .setEmployeeCode(consignmentNoteDTO.getEmployeeCode());
+        }
         repository.save(consignmentNoteDB);
     }
 

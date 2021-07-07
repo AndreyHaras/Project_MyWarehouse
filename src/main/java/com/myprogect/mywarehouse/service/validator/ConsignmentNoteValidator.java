@@ -49,11 +49,11 @@ public class ConsignmentNoteValidator implements Validator {
         if(noteFromDB.getConsignmentNoteId().compareTo("0") != 0){
             errors.rejectValue("consignmentNoteId","Error.id.is.already.use");
         }
-        if(noteFromPage.getPartnerAccount() == null){
+        if(noteFromPage.getPartnerCode() == null){
             errors.rejectValue("consignmentNoteId","Error.data.is.not.enter");
             return;
         }
-        if(noteFromPage.getStorekeeperCode() == null){
+        if(noteFromPage.getEmployeeCode() == null){
             errors.rejectValue("consignmentNoteId","Error.data.is.not.enter");
         }
     }

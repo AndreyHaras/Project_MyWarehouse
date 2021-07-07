@@ -187,7 +187,8 @@ public class ConsignmentNoteController {
     private ConsignmentNoteDTO addNewNote(ConsignmentNoteDTO data){
         ConsignmentNoteDTO consignmentNote = new ConsignmentNoteDTO();
 
-        consignmentNote.setConsignmentNoteId(data.getConsignmentNoteId())
+        consignmentNote.setId(data.getId())
+                .setConsignmentNoteId(data.getConsignmentNoteId())
                 .setConsignmentNoteDate(data.getConsignmentNoteDate())
                 .setPartnerCode(data.getPartnerCode())
                 .setTypeOfOperationCode(data.getTypeOfOperationCode())
