@@ -49,6 +49,7 @@ public class OrganizationAccountController {
                                          BindingResult bindingResult, Model model){
         OrganizationAccountDTO organizationToDB = addOrganizationAccountDTO(organizationFromPage);
         validator.validate(organizationToDB, bindingResult);
+
         if(bindingResult.hasErrors()){
             List<BankDTO> bankInformation = bankService.findAllRecord();
             model.addAttribute("bankList", bankInformation);

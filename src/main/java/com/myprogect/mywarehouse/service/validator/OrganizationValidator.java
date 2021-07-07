@@ -54,5 +54,8 @@ public class OrganizationValidator implements Validator {
         if(organizationFromDB.getCodeOfPayer().toString().compareTo("0") != 0){
             errors.rejectValue("codeOfPayer", "NotValid.organization.settlement.account");
         }
+        if(organizationFromPage.getBankCode() == null){
+            errors.rejectValue("codeOfPayer", "Error.data.is.not.enter");
+        }
     }
 }

@@ -43,8 +43,8 @@ public class StorekeeperValidator implements Validator {
             errors.rejectValue("employeeCode","NotValid.storekeeper.employee.code");
         }
         Pattern patternCode = Pattern.compile(CODE_PATTERN);
-        Matcher matcherCode = patternCode.matcher(storekeeperFromPage.getEmployeeCode().toString());
-        if(matcherCode.matches()){
+        Matcher matcherCode = patternCode.matcher(String.valueOf(storekeeperFromPage.getEmployeeCode()));
+        if(!matcherCode.matches()){
             errors.rejectValue("employeeCode", "NotValid.storekeeper.code");
         }
         Pattern patternName = Pattern.compile(NAME_PATTERN);

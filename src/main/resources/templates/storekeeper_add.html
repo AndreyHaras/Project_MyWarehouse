@@ -85,11 +85,11 @@
             <div class="content-fields">
                 <div>
                     <p>Номер Ответственности</p>
-                    <select id="liability_id" name="liability_id">
+                    <select id="liabilityId" name="liabilityId">
                         <option th:each="liability : ${liabilityList}"
                                 th:value="${liability.getId()}"
                                 th:text="${liability.getLiabilityCode()}"
-                                th:selected="${liability.id == storekeeperAdd.getLiabilityId}">type</option>
+                                th:selected="${liability.id == storekeeperAdd.liabilityId}">type</option>
                     </select>
                 </div>
                 <div>

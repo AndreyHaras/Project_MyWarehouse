@@ -64,5 +64,8 @@ public class PartnerValidator implements Validator {
         if(partnerAccountFromDB.getSettlementAccount() != 0){
             errors.rejectValue("codeOfPayer", "NotValid.organization.settlement.account");
         }
+        if(partnerFromPage.getBankCode() == null){
+            errors.rejectValue("codeOfPayer", "Error.data.is.not.enter");
+        }
     }
 }
