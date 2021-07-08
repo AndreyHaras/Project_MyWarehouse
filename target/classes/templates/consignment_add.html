@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавление накладной</title>
+    <link rel="stylesheet" href="/css/projeck.css">
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <nav class="header-nav">
+            <div class="header-logo">
+                <h3>добавление накладной</h3>
+            </div>
+            <ul class="header-nav-list">
+                <li>
+                    <a th:href="@{/consignment_note/}">Накладные</a>
+                </li>
+                <li>
+                    <a th:href="@{/storekeeper/}">Кладовщики</a>
+                </li>
+                <li>
+                    <a th:href="@{/warehouse/}">Склад</a>
+                </li>
+                <li>
+                    <a th:href="@{/product/}">Товар</a>
+                </li>
+                <li sec:authorize="hasAnyRole('ROLE_ADMIN')" th:if="${#authorization.getAuthentication().isAuthenticated()}">
+                    <a th:href="@{/organization/}" class="header-nav-link">Организация</a>
+                    <ul class="header-nav-sabmenu-list">
+                        <li>
+                            <a th:href="@{/bank/}" class="header-nav-sabmenu-link">Банки</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/partner/}" class="header-nav-sabmenu-link">Контрагенты</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/users/}" class="header-nav-sabmenu-link">Пользователи</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="header-nav-list">
+                <a th:href="@{/logout}">Выход</a>
+            </div>
+        </nav>
+    </header>
+    <br/>
+    <div class="content-show">
+        <div class="content-header">
+            <h2>Накладная</h2>
+        </div>
+        <!--/*@thymesVar id="consignment_note" type="com.myprogect.mywarehouse.service.dto.ConsignmentNoteDTO"*/-->
+        <form th:action="@{/consignment_note/add/}" method="POST" class="content-add" th:object="${consignment_note}">
+            <input name="id" type="hidden" th:value="${consignment_note.id}">
+            <div class="content-fields">
+                <div>
+                    <p>Номер Накладной</p>
+                    <p th:if="${#fields.hasErrors('consignmentNoteId')}" th:class="${#fields.hasErrors('consignmentNoteId')} ? error"
+                       th:errors="*{consignmentNoteId}">Error</p>
+                    <input id="consignmentNoteId" name="consignmentNoteId"
+                           type="text"
+                           placeholder="Введите номер накладной"
+                            th:value="${consignment_note.consignmentNoteId}"/>
+                </div>
+                <div>
+                    <p>Дата Накладной</p>
+                    <p th:if="${#fields.hasErrors('consignmentNoteDate')}" th:class="${#fields.hasErrors('consignmentNoteDate')} ? error"
+                       th:errors="*{consignmentNoteDate}">Error</p>
+                    <input id="consignmentNoteDate" type="date" name="consignmentNoteDate"
+                    th:value="${consignment_note.consignmentNoteDate}"/>
+                </div>
+                <div>
+                    <p>Вид Операции</p>
+                    <select id="typeOfOperationCode" name="typeOfOperationCode">
+                        <option th:each="operation : ${operation_info}"
+                                th:value="${operation.id}"
+                                th:text="${operation.typeOfOperation}"
+                                th:selected="${operation.id == consignment_note.typeOfOperationCode}">type</option>
+                    </select>
+
+                </div>
+            </div>
+            <br/>
+            <div class="content-fields">
+                <div>
+                    <p>Контагент</p>
+                    <select id="partnerCode" name="partnerCode">
+                        <option th:each="partner : ${partner_info}"
+                                th:value="${partner.id}"
+                                th:text="${partner.organizationName}"
+                                th:selected="${partner.id == consignment_note.partnerCode}">type</option>
+                    </select>
+                </div>
+                <div>
+                    <p>Сотрудник</p>
+                    <select id="employeeCode" name="employeeCode">
+                        <option th:each="employee : ${employee_info}"
+                                th:value="${employee.id}"
+                                th:text="${employee.surname}"
+                                th:selected="${employee.id == consignment_note.employeeCode}">type</option>
+                    </select>
+                </div>
+            </div>
+            <br/>
+            <div class="content-fields">
+                <div class="conent-button">
+                    <p>Действия</p>
+                    <button type="submit">Применить</button>
+                    <button th:type="reset">Очистить</button>
+                </div>
+            </div>
+    </div>
+    </form>
+    <footer class="footer">
+        <div class="footer-content">
+            <p>2021 My Warehouse</p>
+        </div>
+    </footer>
+</div>
+</body>
+</html>

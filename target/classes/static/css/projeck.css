@@ -1,0 +1,258 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+.container {
+  min-width: 95vw;
+  min-height: 100vh;
+  height: auto;
+  width: auto;
+  background-color: darkgray;
+}
+.header-nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 10vh;
+  background-color: #729951;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.header-nav li {
+  position: relative;
+  list-style: none;
+}
+
+.header-logout {
+  color: rgba(238, 242, 245, 0.534);
+  text-decoration: none;
+  letter-spacing: 3px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.header-logout:hover {
+  color: rgb(251, 251, 251);
+  text-decoration: underline;
+}
+
+.header-logo {
+  font-size: 20px;
+  color: aliceblue;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+}
+
+.header-nav-list {
+  display: flex;
+  justify-content: space-around;
+}
+
+.header-nav-list > li {
+  list-style: none;
+  margin: 0 15px 0 0;
+}
+
+.header-nav-list > li:hover .header-nav-sabmenu-list {
+  display: block;
+}
+.header-nav-list a {
+  color: rgba(238, 242, 245, 0.534);
+  text-decoration: none;
+  letter-spacing: 3px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.header-nav-list a:hover {
+  color: rgb(251, 251, 251);
+  text-decoration: underline;
+}
+
+.header-nav-sabmenu-list {
+  display: none;
+  padding: 20px 0 0 0;
+  position: absolute;
+  left: 0;
+  top: 15px;
+}
+
+.header-nav-sabmenu-list > li {
+  background-color: #729951;
+  display: inline-block;
+  padding: 5px 10px;
+  min-width: 250px;
+}
+.header-nav-sabmenu-link {
+  color: rgba(238, 242, 245, 0.534);
+}
+/*Тело*/
+.conent-filter {
+  background-color: rgb(250, 252, 253);
+  width: 90%;
+  padding: 10px;
+  margin: auto;
+}
+
+.content-show {
+  background-color: rgb(250, 252, 253);
+  width: 90%;
+  padding: 10px;
+  margin: auto;
+}
+
+.content-filter-header {
+  text-decoration: none;
+  letter-spacing: 3px;
+  font-weight: bold;
+  font-size: 18px;
+  width: 140px;
+  margin: 0 0 20px 80px;
+  border: 2px ridge black;
+  padding: 10px;
+  border-radius: 25px;
+}
+
+.content-header {
+  text-decoration: none;
+  letter-spacing: 3px;
+  font-weight: bold;
+  font-size: 18px;
+  width: 400px;
+  margin: 0 0 20px 80px;
+}
+
+.content-fields {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 10vh;
+  text-align: center;
+}
+.conent-filter-action {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 10vh;
+  text-align: center;
+}
+
+.content-fields div {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.content-fields input {
+  width: 100%;
+  padding: 6px 16px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.content-fields select {
+  width: 100%;
+  padding: 6px 16px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.conent-filter-action div {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.conent-filter-action input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #729951;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.content-table {
+  background-color: rgb(250, 252, 253);
+  width: 90%;
+  padding: 10px;
+  margin: auto;
+}
+
+.content-table table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  min-width: 400px;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  margin: auto;
+}
+
+.content-table thead tr {
+  background-color: #729951;
+  color: #ffffff;
+  text-align: left;
+  font-weight: bold;
+}
+
+.content-table th,
+.content-table td {
+  padding: 20px 40px;
+}
+
+.content-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.content-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.content-table tbody tr:last-of-type {
+  border-bottom: 2px solid #729951;
+}
+
+.content-table tbody tr.active-row {
+  font-weight: bold;
+  color: #729951;
+}
+
+.content-table a {
+  text-decoration: none;
+  font-weight: bold;
+  color: blue;
+}
+
+.content-table a:hover {
+  text-decoration: underline;
+}
+
+.footer {
+  background-color: rgb(250, 252, 253);
+  font-size: 20px;
+  width: 90%;
+  padding: 10px;
+  margin: auto;
+  text-align: center;
+}
+.error{
+  color: crimson;
+}

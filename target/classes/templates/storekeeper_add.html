@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавление кладовщика</title>
+    <link rel="stylesheet" href="/css/projeck.css">
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <nav class="header-nav">
+            <div class="header-logo">
+                <h3>кладовщик</h3>
+            </div>
+            <ul class="header-nav-list">
+                <li>
+                    <a th:href="@{/consignment_note/}">Накладные</a>
+                </li>
+                <li>
+                    <a th:href="@{/storekeeper/}">Кладовщики</a>
+                </li>
+                <li>
+                    <a th:href="@{/warehouse/}">Склад</a>
+                </li>
+                <li>
+                    <a th:href="@{/product/}">Товар</a>
+                </li>
+                <li sec:authorize="hasAnyRole('ROLE_ADMIN')" th:if="${#authorization.getAuthentication().isAuthenticated()}">
+                    <a th:href="@{/organization/}" class="header-nav-link">Организация</a>
+                    <ul class="header-nav-sabmenu-list">
+                        <li>
+                            <a th:href="@{/bank/}" class="header-nav-sabmenu-link">Банки</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/partner/}" class="header-nav-sabmenu-link">Контрагенты</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/users/}" class="header-nav-sabmenu-link">Пользователи</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="header-nav-list">
+                <a th:href="@{/logout}">Выход</a>
+            </div>
+        </nav>
+    </header>
+    <br/>
+    <div class="content-show">
+        <div class="content-header">
+            <h2>Добавить Кладовщика</h2>
+        </div>
+        <!--/*@thymesVar id="storekeeperAdd" type="com.myprogect.mywarehouse.service.dto.StorekeeperDTO"*/-->
+        <form th:action="@{/storekeeper/add/}" method="POST" class="content-add"
+              th:object="${storekeeperAdd}">
+            <br/>
+            <div class="content-fields">
+                <div>
+                    <p>Фамилия</p>
+                    <p th:if="${#fields.hasErrors('surname')}" th:class="${#fields.hasErrors('surname')} ? error"
+                       th:errors="*{surname}">Error</p>
+                    <input type="text" name="surname" id="surname"
+                           th:value="${storekeeperAdd.getSurname()}" placeholder="Введите фамилию"/>
+                </div>
+                <div>
+                    <p>Имя</p>
+                    <p th:if="${#fields.hasErrors('name')}" th:class="${#fields.hasErrors('name')} ? error"
+                       th:errors="*{name}">Error</p>
+                    <input type="text" name="name" id="name"
+                           th:value="${storekeeperAdd.getName()}" placeholder="Введите имя"/>
+                </div>
+                <div>
+                    <p>Отчество</p>
+                    <p th:if="${#fields.hasErrors('middleName')}" th:class="${#fields.hasErrors('middleName')} ? error"
+                       th:errors="*{middleName}">Error</p>
+                    <input type="text" name="middleName" id="middleName"
+                           th:value="${storekeeperAdd.getMiddleName()}" placeholder="Введите отчество"/>
+                </div>
+            </div>
+            <br/>
+            <div class="content-fields">
+                <div>
+                    <p>Номер Ответственности</p>
+                    <p th:if="${#fields.hasErrors('liabilityId')}" th:class="${#fields.hasErrors('liabilityId')} ? error"
+                       th:errors="*{getLiabilityId()}">Error</p>
+                    <select id="liabilityId" name="liabilityId">
+                        <option th:each="liability : ${liabilityList}"
+                                th:value="${liability.getId()}"
+                                th:text="${liability.getLiabilityCode()}"
+                                th:selected="${liability.id == storekeeperAdd.liabilityId}">type</option>
+                    </select>
+                </div>
+                <div>
+                    <p>Код Сотрудника</p>
+                    <p th:if="${#fields.hasErrors('employeeCode')}" th:class="${#fields.hasErrors('employeeCode')} ? error"
+                       th:errors="*{employeeCode}">Error</p>
+                    <input type="number" name="employeeCode" id="employeeCode"
+                           th:value="${storekeeperAdd.getEmployeeCode()}" placeholder="Введите код сотрудника"/>
+                </div>
+            </div>
+            <br/>
+            <div class="content-fields">
+                <div class="conent-filter-button">
+                    <p>Действия</p>
+                    <button type="submit">Добавить</button>
+                    <button th:type="reset">Очистить</button>
+                </div>
+            </div>
+    </div>
+    <footer class="footer">
+        <div class="footer-content">
+            <p>2021 My Warehouse</p>
+        </div>
+    </footer>
+</div>
+</body>
+</html>

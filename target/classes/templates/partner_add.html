@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавление контрагента</title>
+    <link rel="stylesheet" href="/css/projeck.css">
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <nav class="header-nav">
+            <div class="header-logo">
+                <h3>добавление контрагента</h3>
+            </div>
+            <ul class="header-nav-list">
+                <li>
+                    <a th:href="@{/consignment_note/}">Накладные</a>
+                </li>
+                <li>
+                    <a th:href="@{/storekeeper/}">Кладовщики</a>
+                </li>
+                <li>
+                    <a th:href="@{/warehouse/}">Склад</a>
+                </li>
+                <li>
+                    <a th:href="@{/product/}">Товар</a>
+                </li>
+                <li sec:authorize="hasAnyRole('ROLE_ADMIN')" th:if="${#authorization.getAuthentication().isAuthenticated()}">
+                    <a th:href="@{/organization/}" class="header-nav-link">Организация</a>
+                    <ul class="header-nav-sabmenu-list">
+                        <li>
+                            <a th:href="@{/bank/}" class="header-nav-sabmenu-link">Банки</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/partner/}" class="header-nav-sabmenu-link">Контрагенты</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/users/}" class="header-nav-sabmenu-link">Пользователи</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="header-nav-list">
+                <a th:href="@{/logout}">Выход</a>
+            </div>
+        </nav>
+    </header>
+    <br/>
+    <div class="content-table">
+        <div class="content-header">
+            <h2>Добавление Контрагента</h2>
+        </div>
+        <!--/*@thymesVar id="partnerAdd" type="com.myprogect.mywarehouse.service.dto.PartnerAccountDTO"*/-->
+        <form th:action="@{/partner/add/}" method="POST" class="content-add" th:object="${partnerAdd}">
+            <div class="content-fields">
+                <div>
+                    <p>Код Контрагента</p>
+                    <p th:if="${#fields.hasErrors('partnerCode')}" th:class="${#fields.hasErrors('partnerCode')} ? error"
+                       th:errors="*{partnerCode}">Error</p>
+                    <input type="number" name="partnerCode" id="partnerCode"
+                           th:value="${partnerAdd.getPartnerCode()}" placeholder="Введите код контрагента"/>
+                </div>
+                <div>
+                    <p>Наименование Организации</p>
+                    <p th:if="${#fields.hasErrors('organizationName')}" th:class="${#fields.hasErrors('organizationName')} ? error"
+                       th:errors="*{organizationName}">Error</p>
+                    <input type="text" name="organizationName" id="organizationName"
+                           th:value="${partnerAdd.getOrganizationName()}" placeholder="Введите наименование счета"/>
+                </div>
+                <div>
+                    <p>Код Плательшика</p>
+                    <p th:if="${#fields.hasErrors('codeOfPayer')}" th:class="${#fields.hasErrors('codeOfPayer')} ? error"
+                       th:errors="*{codeOfPayer}">Error</p>
+                    <input type="number" name="codeOfPayer" id="codeOfPayer"
+                           th:value="${partnerAdd.getCodeOfPayer()}" placeholder="Введите код плательщика"/>
+                </div>
+            </div>
+            <br/>
+            <div class="content-fields">
+                <div>
+                    <p>Расчетный счет</p>
+                    <p th:if="${#fields.hasErrors('settlementAccount')}" th:class="${#fields.hasErrors('settlementAccount')} ? error"
+                       th:errors="*{settlementAccount}">Error</p>
+                    <input type="number" name="settlementAccount" id="settlementAccount"
+                           th:value="${partnerAdd.getSettlementAccount()}" placeholder="Введите расчетный счет"/>
+                </div>
+                <div>
+                    <p>Банк</p>
+                    <select id="bankCode" name="bankCode">
+                        <option th:each="bank : ${bankList}"
+                                th:value="${bank.getId()}"
+                                th:text="${bank.getBankName()}"
+                                th:selected="${bank.id == partnerAdd.bankCode}">type</option>
+                    </select>
+                </div>
+            </div>
+            <br/>
+            <div class="content-fields">
+                <div class="conent-button">
+                    <p>Действия</p>
+                    <button type="submit">Добавить счет</button>
+                    <button th:type="reset">Очистить</button>
+                </div>
+            </div>
+    </div>
+    </form>
+    <footer class="footer">
+        <div class="footer-content">
+            <p>2021 My Warehouse</p>
+        </div>
+    </footer>
+</div>
+</body>
+</html>

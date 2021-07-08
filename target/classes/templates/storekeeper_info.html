@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Информация о кладовщике</title>
+    <link rel="stylesheet" href="/css/projeck.css">
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <nav class="header-nav">
+            <div class="header-logo">
+                <h3>информация о сотруднике</h3>
+            </div>
+            <ul class="header-nav-list">
+                <li>
+                    <a th:href="@{/consignment_note/}">Накладные</a>
+                </li>
+                <li>
+                    <a th:href="@{/storekeeper/}">Кладовщики</a>
+                </li>
+                <li>
+                    <a th:href="@{/warehouse/}">Склад</a>
+                </li>
+                <li>
+                    <a th:href="@{/product/}">Товар</a>
+                </li>
+                <li sec:authorize="hasAnyRole('ROLE_ADMIN')" th:if="${#authorization.getAuthentication().isAuthenticated()}">
+                    <a th:href="@{/organization/}" class="header-nav-link">Организация</a>
+                    <ul class="header-nav-sabmenu-list">
+                        <li>
+                            <a th:href="@{/bank/}" class="header-nav-sabmenu-link">Банки</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/partner/}" class="header-nav-sabmenu-link">Контрагенты</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/users/}" class="header-nav-sabmenu-link">Пользователи</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="header-nav-list">
+                <a th:href="@{/logout}">Выход</a>
+            </div>
+        </nav>
+    </header>
+    <br/>
+    <div class="content-show">
+        <div class="content-header">
+            <h2>Сотрудник</h2>
+        </div>
+        <!--/*@thymesVar id="storekeeperInfo" type="com.myprogect.mywarehouse.service.dto.StorekeeperDTO"*/-->
+        <div class="content-fields">
+            <div>
+                <p>#</p>
+                <input type="text" name="id"
+                       th:value="${storekeeperInfo.getId()}" disabled/>
+            </div>
+            <div>
+                <p>Номер Ответственности</p>
+                <input type="text" name="liability-id"
+                       th:value="${storekeeperInfo.getLiabilityId()}" disabled/>
+            </div>
+            <div>
+                <p>Код Сотрудника</p>
+                <input type="text" name="employee-code"
+                       th:value="${storekeeperInfo.getEmployeeCode()}" disabled/>
+            </div>
+        </div>
+        <br/>
+        <div class="content-fields">
+            <div>
+                <p>Фамилия</p>
+                <input type="text" name="partner-code"
+                       th:value="${storekeeperInfo.getSurname()}" disabled/>
+            </div>
+            <div>
+                <p>Имя</p>
+                <input type="text" name="organization-name"
+                       th:value="${storekeeperInfo.getName()}" disabled/>
+            </div>
+            <div>
+                <p>Отчество</p>
+                <input type="text" name="code-of-payer"
+                       th:value="${storekeeperInfo.getMiddleName()}" disabled/>
+            </div>
+        </div>
+        <br/>
+    </div>
+    <br/>
+    <div class="content-table">
+        <div class="content-header">
+            <h2>Накладные Принятые Сотрудником</h2>
+        </div>
+        <table>
+            <thead>
+            <th>#</th>
+            <th>Номер Накладной</th>
+            <th>Дата Накладной</th>
+            <th>Действие</th>
+            </thead>
+            <tbody th:each="note : ${storekeeperInfo.getConsignmentNote()}">
+            <td th:utext="${note.getId()}"></td>
+            <td th:utext="${note.getConsignmentNoteId()}"></td>
+            <td th:utext="${note.getConsignmentNoteDate()}"></td>
+            <td>
+                <a th:href="@{/consignment_note/info/{id}(id=${note.id})}">Просмотр Накладной</a>
+            </td>
+            </tbody>
+        </table>
+    </div>
+    <footer class="footer">
+        <div class="footer-content">
+            <p>2021 My Warehouse</p>
+        </div>
+    </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Основная страница</title>
+    <link rel="stylesheet" href="/css/projeck.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <nav class="header-nav">
+                <div class="header-logo">
+                    <h3>накладные</h3>
+                </div>
+                <ul class="header-nav-list">
+                    <li>
+                        <a th:href="@{/consignment_note/}">Накладные</a>
+                   </li>
+                    <li>
+                        <a th:href="@{/storekeeper/}">Кладовщики</a>
+                    </li>
+                    <li>
+                         <a th:href="@{/warehouse/}">Склад</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/product/}">Товар</a>
+                   </li>
+                    <li sec:authorize="hasAnyRole('ROLE_ADMIN')" th:if="${#authorization.getAuthentication().isAuthenticated()}">
+                         <a th:href="@{/organization/}" class="header-nav-link">Организация</a>
+                        <ul class="header-nav-sabmenu-list">
+                            <li>
+                                <a th:href="@{/bank/}" class="header-nav-sabmenu-link">Банки</a>
+                            </li>
+                            <li>
+                                <a th:href="@{/partner/}" class="header-nav-sabmenu-link">Контрагенты</a>
+                            </li>
+                            <li>
+                                <a th:href="@{/users/}" class="header-nav-sabmenu-link">Пользователи</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="header-nav-list">
+                    <a th:href="@{/logout}">Выход</a>
+                </div>
+            </nav>
+        </header>
+        <br/>
+        <div class="conent-filter">
+            <div class="content-filter-header">
+                <h3>Фильтры</h3>
+            </div>
+            <form th:action="@{/consignment_note/filter/}" method="POST" class="conent-filter-action" th:object="${consignmentNoteFilter}">
+                <div>
+                    <p>Введите Дату</p>
+                    <input type="date" name="consignmentNoteDate"
+                           id="consignmentNoteDate" placeholder="Введите дату"
+                            th:value="${consignmentNoteFilter.consignmentNoteDate}"/>
+                </div>
+                <div>
+                    <p>Введите Номер Накладной</p>
+                    <input type="number" name="consignmentNoteId"
+                           id="consignmentNoteId" placeholder="введите номер накладной"
+                            th:value="${consignmentNoteFilter.consignmentNoteId}"/>
+                </div>
+                <div class="conent-filter-button">
+                    <p>Действия</p>
+                    <button type="submit">Применить</button>
+                    <button th:type="reset">Очистить</button>
+                </div>
+            </form>
+        </div>
+        <br/>
+        <div class="content-table">
+            <form th:action="@{/consignment_note/add/}" method="get">
+                <button type="submit" class="button">
+                    <span class="button__text">Добавить Накладную</span>
+                </button>
+            </form>
+            <table>
+                <thead>
+                    <th>#</th>
+                    <th>Номер Накладной</th>
+                    <th>Дата Накладной</th>
+                    <th>Имя Контрагента</th>
+                    <th>Операция</th>
+                    <th>Фамилия Приёмщика</th>
+                    <th>Действие</th>
+                </thead>
+                <tbody th:each="consignment : ${consignmentList}">
+                    <td th:utext="${consignment?.getId()}"></td>
+                    <td th:utext="${consignment?.getConsignmentNoteId()}"></td>
+                    <td th:utext="${consignment?.getConsignmentNoteDate()}"></td>
+                    <td th:utext="${consignment?.getPartnerAccount()?.getOrganizationName()}"></td>
+                    <td th:utext="${consignment?.getOperation()?.getTypeOfOperation()}"></td>
+                    <td th:utext="${consignment?.getStorekeeperCode()?.getSurname()}"></td>
+                    <td th:if="${consignment?.getId()}" >
+                        <a th:href="@{/consignment_note/info/{id}(id=${consignment.id})}">Просмотр</a>
+                        <a  sec:authorize="hasAnyRole('ROLE_ADMIN')" th:if="${#authorization.getAuthentication().isAuthenticated()}"
+                                onclick="return confirm('Внимание! данные будут изменены, желаете продолжить?')"
+                                th:href="@{/consignment_note/update_consignment_note/{id}(id=${consignment.id})}">Редактировать</a>
+                        <a th:href="@{/consignment_note/add_product/{id}(id=${consignment.id})}">Принять Товар</a>
+                        <a sec:authorize="hasAnyRole('ROLE_ADMIN')" th:if="${#authorization.getAuthentication().isAuthenticated()}"
+                                onclick="return confirm('Вы действительно хотите удалить запись? ' +
+                         'Внимание! информация о товаре на складе так-же будет удалена')"
+                           th:href="@{/consignment_note/delete/{id}(id=${consignment.id})}">Удалить</a>
+                    </td>
+                </tbody>
+            </table>
+        </div>
+        <footer class="footer">
+            <div class="footer-content">
+                <p>2021 My Warehouse</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
